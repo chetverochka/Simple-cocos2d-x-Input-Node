@@ -79,7 +79,7 @@ class InputField : public cocos2d::Node {
 		while (label->getBoundingBox().size.width > size.width * maxWidth) {
 			cocos2d::TTFConfig config;
 			config = label->getTTFConfig();
-			config.fontSize -= 0.1;
+			config.fontSize -= 2; // чем больше это значение - тем выше производительность!
 			label->setTTFConfig(config);
 		}
 	}
