@@ -36,7 +36,7 @@ class InputField : public cocos2d::Node {
 		cocos2d::EventListenerTouchOneByOne* listener = cocos2d::EventListenerTouchOneByOne::create();
 		listener->setSwallowTouches(true);
 		listener->onTouchBegan = CC_CALLBACK_2(InputField::touchIsDown, this);
-		listener->onTouchEnded = [this](cocos2d::Touch* t, cocos2d::Event* e) {};
+		listener->onTouchEnded = [this](cocos2d::Touch* t, cocos2d::Event* e) { return true; };
 
 		cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
@@ -108,8 +108,9 @@ class InputField : public cocos2d::Node {
 		cocos2d::Vec2 convertedTouchPos = this->convertToNodeSpace(touchPosInGlobalSpace);
 		if (bg->getBoundingBox().containsPoint(convertedTouchPos)) {
 			field->attachWithIME();
+			return true;
 		}
-		return true;
+		return false;
 	}
 	void fieldCallback(cocos2d::Ref* sender, cocos2d::ui::TextField::EventType type) {
 		cocos2d::ui::TextField* ref = (cocos2d::ui::TextField*)(sender);
